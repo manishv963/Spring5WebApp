@@ -1,6 +1,7 @@
 package com.example.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 @Entity
 public class Author {
@@ -11,7 +12,7 @@ public class Author {
     private String lastName;
 
     @ManyToMany(mappedBy="authors")
-    private Set<Books> booksSet;
+    private Set<Books> booksSet =  new HashSet<>();
 
     public long getId() {
         return id;
@@ -21,13 +22,10 @@ public class Author {
         this.id = id;
     }
 
-    public Author(Long id,String firstName, String lastName, Set<Books> booksSet) {
-
-        this.id = id;
+    public Author(String firstName, String lastName) {
 
         this.firstName = firstName;
         this.lastName = lastName;
-        this.booksSet = booksSet;
     }
 
     //jpa requires default constructor
@@ -60,16 +58,6 @@ public class Author {
     }
 
     @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", booksSet=" + booksSet +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -82,5 +70,15 @@ public class Author {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", booksSet=" + booksSet +
+                '}';
     }
 }

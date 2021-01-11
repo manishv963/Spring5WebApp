@@ -2,6 +2,7 @@ package com.example.domain;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,7 +15,7 @@ public class Books {
     @ManyToMany
     @JoinTable(name="author_book",joinColumns=@JoinColumn(name ="book_id"),
     inverseJoinColumns=@JoinColumn(name ="author_id"))
-    private Set<Author> authorSet;
+    private Set<Author> authorSet = new HashSet<>();
 
     public long getId() {
         return id;
@@ -52,8 +53,7 @@ public class Books {
         this.isbn = isbn;
     }
 
-    public Books(Long id,String title, String isbn) {
-        this.id =id;
+    public Books(String title, String isbn) {
         this.title = title;
         this.isbn = isbn;
     }
@@ -68,18 +68,4 @@ public class Books {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Books books = (Books) o;
-
-        return id == books.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
 }
