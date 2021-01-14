@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.example.SpringFirstProject.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,10 +11,11 @@ public class Author {
     private String firstName;
     private String lastName;
 
-    @ManyToMany(mappedBy="authors")
+    @ManyToMany(mappedBy="authorSet")
     private Set<Books> booksSet =  new HashSet<>();
 
     public long getId() {
+
         return id;
     }
 
@@ -78,7 +79,6 @@ public class Author {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", booksSet=" + booksSet +
                 '}';
     }
 }

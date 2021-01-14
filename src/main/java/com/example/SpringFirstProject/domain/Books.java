@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.example.SpringFirstProject.domain;
 
 import javax.persistence.*;
 
@@ -12,9 +12,13 @@ public class Books {
     private long id;
     private String title;
     private String isbn;
+
+    @ManyToOne
+    private Publisher publisher;
+
     @ManyToMany
-    @JoinTable(name="author_book",joinColumns=@JoinColumn(name ="book_id"),
-    inverseJoinColumns=@JoinColumn(name ="author_id"))
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authorSet = new HashSet<>();
 
     public long getId() {
@@ -22,7 +26,16 @@ public class Books {
     }
 
     public void setId(long id) {
+
         this.id = id;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public Set<Author> getAuthorSet() {
@@ -64,8 +77,6 @@ public class Books {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", authorSet=" + authorSet +
                 '}';
     }
-
 }
